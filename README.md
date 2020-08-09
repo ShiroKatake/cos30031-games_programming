@@ -39,11 +39,21 @@ e142fd1 FIX: Player vs Bullet collision detection
 ```
 
 ## Release Notes
-* Title must have version and date
-* **At least 1** of these categories must be in each version change:
+* Title must have version number and date
+
+### Version numbering
+Example version: x.y.z
+* x: Major release (Task number)
+* y: Minor release (Updates in that task)
+* z: Fixes (Fixes related to that task)
+
+### Listing changes
+**At least 1** of these categories must be in each version listed:
   * What's New: A list of all major additions
+  * Changes: A list of all major updates
   * Fixes: A list of all bug fixes (major and minor)
-  * Changes: A list of all major changes
+
+
 
 ## Resources
 * Markdown wiki: https://bitbucket.org/tutorials/markdowndemo/src/master/README.md

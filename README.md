@@ -2,7 +2,9 @@
 
 ## Who Am I?
 
-TODO: Add your name, student id, and easy email link here, formatted as a unordered list. 
+* Name: Khang Gia Trinh
+* ID: 102118468
+* Email: 102118468@student.swin.edu.au
 
 ## Purpose
 

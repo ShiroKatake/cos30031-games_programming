@@ -13,6 +13,7 @@
 ## Committing rules
 * Where possible, changes should be made in several small commits as it makes it
 easy to find the steps in achieving those changes
+
 ## Commit Messages
 ### Use Tags
 
@@ -52,8 +53,6 @@ Example version: x.y.z
   * What's New: A list of all major additions
   * Changes: A list of all major updates
   * Fixes: A list of all bug fixes (major and minor)
-
-
 
 ## Resources
 * Markdown wiki: https://bitbucket.org/tutorials/markdowndemo/src/master/README.md

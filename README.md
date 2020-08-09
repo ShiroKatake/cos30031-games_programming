@@ -26,3 +26,14 @@ The messages must be:
 * Written in imperative mood (ie. Add instead of Added)
 * Has no period `.` at the end
 * Be as specific as possible
+
+### Examples:
+```
+5ba3db6 ADD: Ammo reload feature
+```
+```
+e142fd1 FIX: Player vs Bullet collision detection
+```
+```
+22b25e0 UPDATE: Increase Player HP from 80 to 90
+```

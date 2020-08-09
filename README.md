@@ -37,6 +37,14 @@ e142fd1 FIX: Player vs Bullet collision detection
 ```
 22b25e0 UPDATE: Increase Player HP from 80 to 90
 ```
+
+## Release Notes
+* Title must have version and date
+* **At least 1** of these categories must be in each version change:
+  * What's New: A list of all major additions
+  * Fixes: A list of all bug fixes (major and minor)
+  * Changes: A list of all major changes
+
 ## Resources
 * Markdown wiki: https://bitbucket.org/tutorials/markdowndemo/src/master/README.md
 * How to write a Git Commit Message: https://chris.beams.io/posts/git-commit/

@@ -13,3 +13,4 @@
 ## Committing rules
 * Where possible, changes should be made in several small commits as it makes it
 easy to find the steps in achieving those changes
+## Commit messages writing convention

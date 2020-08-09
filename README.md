@@ -58,3 +58,4 @@ Example version: x.y.z
 ## Resources
 * Markdown wiki: https://bitbucket.org/tutorials/markdowndemo/src/master/README.md
 * How to write a Git Commit Message: https://chris.beams.io/posts/git-commit/
+* How to read version number https://stackoverflow.com/questions/2791121/what-every-digit-means-in-software-version-1-7-1-0-for-example

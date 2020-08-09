@@ -19,3 +19,10 @@ easy to find the steps in achieving those changes
 * ADD: Used for adding something new to the project (ie. New files, new code, etc.)
 * FIX: Used for fixing bugs, broken features, tutor's suggestions, etc.
 * UPDATE: Used for making changes on an existing file
+
+### Writing Rules
+The messages must be:
+* A summary of 50 chars or less
+* Written in imperative mood (ie. Add instead of Added)
+* Has no period `.` at the end
+* Be as specific as possible

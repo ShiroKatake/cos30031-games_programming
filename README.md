@@ -54,6 +54,19 @@ Example version: x.y.z
   * Changes: A list of all major updates
   * Fixes: A list of all bug fixes (major and minor)
 
+### Writing rules
+What's New:
+* An addition "has been added".
+* This feature "is now available".
+
+Changes:
+* This feature "has been increased/decreased from x to y".
+* This feature "has been removed
+
+Fixes:
+* This issue "has been fixed". 
+* The player "will now be able to"/"will no longer be able to do x, y, z".
+
 ## Resources
 * Markdown wiki: https://bitbucket.org/tutorials/markdowndemo/src/master/README.md
 * How to write a Git Commit Message: https://chris.beams.io/posts/git-commit/

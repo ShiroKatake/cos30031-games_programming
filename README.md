@@ -21,7 +21,7 @@ easy to find the steps in achieving those changes
 * FIX: Used for fixing bugs, broken features, tutor's suggestions, etc.
 * UPDATE: Used for making changes on an existing file
 
-### Writing conventions
+### Writing rules
 The messages must be:
 * A summary of 50 chars or less
 * Written in imperative mood (ie. Add instead of Added)
@@ -45,7 +45,7 @@ e142fd1 FIX: Player vs Bullet collision detection
 ### Version numbering
 Example version: x.y.z
 * x: Major release (Task number)
-* y: Minor release (Updates in that task)
+* y: Minor release (Total count of additions and updates in that task)
 * z: Fixes (Fixes related to that task)
 
 ### Listing changes

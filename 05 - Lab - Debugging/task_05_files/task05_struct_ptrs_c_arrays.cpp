@@ -53,7 +53,13 @@ Updates
 
 using namespace std;
 
-// #TODO: Q.1 What is the difference between a struct and a class?
+// Q.1 What is the difference between a struct and a class?
+// https://www.geeksforgeeks.org/structure-vs-class-in-cpp/
+// - The default access for members of a struct are public by default
+// - The default access for members of a class are private by default
+
+// - When deriving a struct, the default access specifier is public
+// - When deriving a class, the default access specifier is private
 struct Particle
 {
     unsigned int age;
@@ -61,7 +67,7 @@ struct Particle
     int y;
 };
 
-// #TODO: Q.2 What are function declarations?
+// Q.2 What are function declarations?
 // Tip: Define, but explain *why* or *if* they are needed.
 void showParticle(Particle);
 

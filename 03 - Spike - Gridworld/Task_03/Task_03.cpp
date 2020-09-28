@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 using namespace std;
 
 int map[9][8] = {
@@ -9,11 +10,14 @@ int map[9][8] = {
 	{1, 0, 0, 0, 1, 0, 0, 1},
 	{1, 0, 1, 1, 1, 1, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 2, 1, 1, 1, 1, 1}
+	{1, 0, 2, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-char direction;
+char keyboardInput;
+
+int x = 2;
+int y = 7;
 
 void ProcessInput() {
 

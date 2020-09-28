@@ -74,8 +74,13 @@ struct Particle
 // This is necessary when you **define** a function in a source file, then you call that function in another file.
 void showParticle(Particle);
 
-// #TODO: Q.3 Why are variable names not needed here?
+// Q.3 Why are variable names not needed here?
+// https://www.tutorialspoint.com/cplusplus/cpp_functions.htm#:~:text=A%20function%20declaration%20tells%20the,that%20your%20program%20can%20call.
 // Extra: Could you add variable names? Would that be good?
+// - A parameter name is required when a compiler needs to know what variable to read/write into.
+// - A function declaration alone is just a "blueprint" of how a function should work, it's not a working function,
+// so the compiler doesn't need to know parameter names since it just need to know how to create the function
+// when it needs to call it in a different file, not how to work it. 
 Particle getParticleWith(int, int, int);
 
 void setParticleWith(Particle, int, int, int);

@@ -63,9 +63,12 @@ void Update() {
 }
 
 void Render() {
-	for (auto& rows : map) // Iterating over rows
+	//Clear screen before update next frame
+	system("cls");
+
+	for (auto& rows : map) //Iterating over rows
 	{
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++) //Iterating over columns
 		{
 			switch (rows[i])
 			{
@@ -90,16 +93,34 @@ void Render() {
 			}
 		}
 	}
+
+	if (!win && !lose) {
+		cout << endl;
+		cout << "Press N to move north." << endl;
+		cout << "Press S to move south." << endl;
+		cout << "Press W to move west." << endl;
+		cout << "Press E to move east." << endl;
+	}
+	else {
+		cout << endl;
+		if (win) {
+			cout << "Wow - you’ve discovered a large chest filled with GOLD coins!" << endl;
+			cout << "YOU WIN!" << endl;
+		}
+		if (lose) {
+			cout << "Arrrrgh... you’ve fallen down a pit." << endl;
+			cout << "YOU HAVE DIED!" << endl;
+		}
+		cout << "Thanks for playing. There probably won’t be a next time." << endl;
+		cout << "Press Q to exit." << endl;
+	}
 }
 
-int main() {
-
+void main() {
 	while (true)
 	{
-		ProcessInput();
 		Update();
 		Render();
-
-		cin.get();
+		GetInput();
 	}
 }

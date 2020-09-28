@@ -68,7 +68,10 @@ struct Particle
 };
 
 // Q.2 What are function declarations?
+// https://www.tutorialspoint.com/cplusplus/cpp_functions.htm#:~:text=A%20function%20declaration%20tells%20the,that%20your%20program%20can%20call.
 // Tip: Define, but explain *why* or *if* they are needed.
+// It tells the compiler about the function's name, return type and parameters. Basically how to call that function.
+// This is necessary when you **define** a function in a source file, then you call that function in another file.
 void showParticle(Particle);
 
 // #TODO: Q.3 Why are variable names not needed here?

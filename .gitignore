@@ -1,0 +1,8 @@
+#ignore all kind of files
+*.*
+
+#except these files
+!*.cpp
+!*.gitignore
+!*.pdf
+!*.txt

@@ -39,7 +39,13 @@ void Move(int horizontal, int vertical) {
 	map[y][x] = 2;
 }
 
-void Update() {
+void GetInput() {
+	while (!_kbhit()) {
+		//Wait for user input before update next frame.
+		//This "game" only needs to update if there's a user input anyway...
+	}
+	keyboardInput = _getch();
+}
 
 }
 

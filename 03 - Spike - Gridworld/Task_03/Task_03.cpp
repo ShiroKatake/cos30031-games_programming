@@ -47,6 +47,19 @@ void GetInput() {
 	keyboardInput = _getch();
 }
 
+void Update() {
+	if (!win && !lose) {
+		if (keyboardInput == 'n')
+			Move(0, -1);
+		if (keyboardInput == 's')
+			Move(0, 1);
+		if (keyboardInput == 'w')
+			Move(-1, 0);
+		if (keyboardInput == 'e')
+			Move(1, 0);
+	}
+	if (keyboardInput == 'q')
+		exit(0);
 }
 
 void Render() {

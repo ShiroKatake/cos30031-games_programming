@@ -247,7 +247,7 @@ void array_demo_1() {
     cout << endl;
 
     // sort?
-    sort(a1.rbegin(), a1.rend());
+    sort(a1.rend(), a1.rbegin());
     cout << "Reverse Sort() on a1, now ..." << endl;
     showIntArray(a1);
     // #TODO: Q.1.10 How would you do a forward (not reverse) sort?

@@ -278,7 +278,9 @@ void array_demo_2() {
 
         cout << "a3 " << hex << &a3 << " " << a3.size() << endl;
         auto a4(a1); // this works too
+		array<int, 5> a5 = a1;
         cout << "a4 " << hex << &a4 << " " << a4.size() << endl;
+        cout << "a5 " << hex << &a5 << " " << a5.size() << endl;
     }
 }
 

@@ -101,7 +101,7 @@ void showIntArray(const array<int, 3> &arr);
 int main() {
     // #TODO: Uncomment each of the _demo function to investigate!!
 
-    //array_demo_1();
+    array_demo_1();
     // #TODO: Q.1 There are inside array_demo_1 - answer them there.
 
     //array_demo_2();

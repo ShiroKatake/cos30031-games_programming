@@ -221,7 +221,7 @@ void array_demo_1() {
     // access of array by [index] is not range protected (BAD)
     cout << "What is at [3]? (out of bounds) " << a1[3] << endl;
     // #TODO: Q.1.7 Try this. Why does a1[3] work but at(3) does not?
-    if (false)
+    if (true)
         cout << "What is at(3)? (out of range exception) " << a1.at(3) << endl;
 
     // let's use some other container methods

@@ -1,10 +1,25 @@
 #ignore all kind of files
-*.*
-05 - Lab - Debugging/task_05_files
+.*.cpp
+*.tlog
+*.db
+*.exe
+*.filters
+*.ipch
+*.idb
+*.ilk
+*.log
+*.obj
+*.opendb
+*.pdb
+*.py
+*.sln
+*.suo
+*.txt
+*.user
+*.vcxproj
+*.zip
 
 #except these files
-!*.cpp
 !*.gitignore
 !*.pdf
-!*.txt
 !*.docx

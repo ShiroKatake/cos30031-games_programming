@@ -8,6 +8,7 @@
 using namespace std;
 using namespace std::chrono;
 
+ofstream testFile;
 
 // - count char using slow repeated string::find_first_of
 int count_char_using_find_first_of(string s, char delim)
@@ -32,9 +33,8 @@ int count_char_using_count(string s, char delim)
 
 void exponential_rampup_test()
 {
-	ofstream testFile;
-	testFile.open("TestResult.csv");
-	testFile << ",,," << "Size, Time, Time/Interval" << endl;
+	testFile << "Exponential rampup test" << endl;
+	testFile << "Size, Time, Time/Interval" << endl;
 
     cout << " << Exponential Ramp-up Test >> " << endl;
     int total;
@@ -52,21 +52,18 @@ void exponential_rampup_test()
         cout << " - size: " << size << ", time: " << diff.count() << " s";
         cout << ", time/int: " << diff.count() / size << "s/int" << endl;
 
-		testFile << ",,," << size << "," << diff.count() << "," << diff.count() / size << endl;
+		testFile << size << "," << diff.count() << "," << diff.count() / size << endl;
 
         // TIP: time in nanoseconds? Cast result of chrono::duration.count() ...
         // auto _dur = duration_cast<nanoseconds>( end - start ).count();
         // cout << _dur << endl;
     }  
     cout << "done." << endl;
-
-	testFile.close();
 }
 
 void linear_rampup_test()
 {
-	ofstream testFile;
-	testFile.open("TestResult.csv");
+	testFile << "Linear rampup test" << endl;
 	testFile << "Size, Time, Time/Interval" << endl;
 
     cout << " << Linear Ramp-up Test >> " << endl;
@@ -90,14 +87,13 @@ void linear_rampup_test()
 		testFile << size << "," << diff.count() << "," << diff.count() / size << endl;
     }  
     cout << "done." << endl;
-
-	testFile.close();
 }
 
 
 
 int main()
 {
+	testFile.open("TestResult.csv");
 
     // Simple wrapper around a linaer set of time tests
     linear_rampup_test();
@@ -113,8 +109,8 @@ int main()
     cout << "result: " << result << endl;    
 
     result = count_char_using_count(s1, 's');
-    cout << "result: " << result << endl;    
-    
+    cout << "result: " << result << endl;
 
+	testFile.close();
 }
 

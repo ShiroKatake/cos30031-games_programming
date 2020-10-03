@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <numeric>
 #include <algorithm>
@@ -31,6 +32,10 @@ int count_char_using_count(string s, char delim)
 
 void exponential_rampup_test()
 {
+	ofstream testFile;
+	testFile.open("TestResult.csv");
+	testFile << ",,," << "Size, Time, Time/Interval" << endl;
+
     cout << " << Exponential Ramp-up Test >> " << endl;
     int total;
     // ull (suffix) == "unsigned long long" in c
@@ -47,15 +52,23 @@ void exponential_rampup_test()
         cout << " - size: " << size << ", time: " << diff.count() << " s";
         cout << ", time/int: " << diff.count() / size << "s/int" << endl;
 
+		testFile << ",,," << size << "," << diff.count() << "," << diff.count() / size << endl;
+
         // TIP: time in nanoseconds? Cast result of chrono::duration.count() ...
         // auto _dur = duration_cast<nanoseconds>( end - start ).count();
         // cout << _dur << endl;
     }  
     cout << "done." << endl;
+
+	testFile.close();
 }
 
 void linear_rampup_test()
 {
+	ofstream testFile;
+	testFile.open("TestResult.csv");
+	testFile << "Size, Time, Time/Interval" << endl;
+
     cout << " << Linear Ramp-up Test >> " << endl;
     int total;
     for (auto size = 1; size <= 5; size += 1) 
@@ -73,8 +86,12 @@ void linear_rampup_test()
         duration<double> diff = end - start;
         cout << " - size: " << vec_size << ", time: " << diff.count() << " s";
         cout << ", time/int: " << diff.count() / vec_size << "s/int" << endl;
+
+		testFile << size << "," << diff.count() << "," << diff.count() / size << endl;
     }  
     cout << "done." << endl;
+
+	testFile.close();
 }
 
 

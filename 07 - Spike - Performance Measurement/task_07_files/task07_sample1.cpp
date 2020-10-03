@@ -52,7 +52,7 @@ void exponential_rampup_test()
         cout << " - size: " << size << ", time: " << diff.count() << " s";
         cout << ", time/int: " << diff.count() / size << "s/int" << endl;
 
-		testFile << size << "," << diff.count() << "," << diff.count() / size << endl;
+		testFile << fixed << size << "," << diff.count() << "," << diff.count() / size << endl;
 
         // TIP: time in nanoseconds? Cast result of chrono::duration.count() ...
         // auto _dur = duration_cast<nanoseconds>( end - start ).count();
@@ -84,7 +84,7 @@ void linear_rampup_test()
         cout << " - size: " << vec_size << ", time: " << diff.count() << " s";
         cout << ", time/int: " << diff.count() / vec_size << "s/int" << endl;
 
-		testFile << size << "," << diff.count() << "," << diff.count() / size << endl;
+		testFile << fixed << size << "," << diff.count() << "," << diff.count() / size << endl;
     }  
     cout << "done." << endl;
 }

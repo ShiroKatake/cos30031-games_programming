@@ -18,13 +18,13 @@ class ParticleClassB {
     public:
         void do_stuff(int value) { _y = value + _x; }
         ParticleClassB() { _x = 0; _y = 0; }; 
-        void show() { cout <<  "(" << x << ", " << y << ")" << endl; }
+        void show() { cout <<  "(" << _x << ", " << _y << ")" << endl; }
 };
 
 void exp_rampup_test(int steps)
 {
     cout << " << Particle Ramp-up Test >> " << endl;
-    uint size = 1;
+    unsigned int size = 1;
     for (auto step = 1; step <= steps; step++) 
     {
         // 1. get start time
@@ -48,7 +48,7 @@ void exp_rampdown_test(int steps, bool do_more)
     cout << " << Particle Ramp-down Test >> " << endl;
     // Find top exponent size value, so we can work down. 
     // No in-built int power() for C++/std, so ... roll our own.
-    uint size = 1;
+    unsigned int size = 1;
     for (int i = 1; i < steps; i++) size = size * 10;
 
     // Do the test of vector creation, work on vector objects ...
@@ -75,11 +75,11 @@ void exp_rampdown_test(int steps, bool do_more)
     }  
     cout << "done." << endl;
 }
-
-int main()
-{
-    exp_rampup_test(5);
-    exp_rampdown_test(5, false);
-    exp_rampdown_test(5, true);
-}
+//
+//int main()
+//{
+//    exp_rampup_test(5);
+//    exp_rampdown_test(5, false);
+//    exp_rampdown_test(5, true);
+//}
 

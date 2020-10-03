@@ -43,10 +43,9 @@ void exponential_rampup_test()
         total = accumulate(v.begin(), v.end(), 0u); 
         // 3. show duration time
         auto end = steady_clock::now();
-        //duration<double> diff = end - start;
-		auto _dur = duration_cast<nanoseconds>(end - start).count();
-        cout << " - size: " << size << ", time: " << _dur << " s";
-        cout << ", time/int: " << _dur / size << "s/int" << endl;
+        duration<double> diff = end - start;
+        cout << " - size: " << size << ", time: " << diff.count() << " s";
+        cout << ", time/int: " << diff.count() / size << "s/int" << endl;
 
         // TIP: time in nanoseconds? Cast result of chrono::duration.count() ...
         // auto _dur = duration_cast<nanoseconds>( end - start ).count();

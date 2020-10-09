@@ -1,19 +1,48 @@
+//Code learned from lecture 2.2 COS30031 Games Programming by Clinton
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-enum class STATES {WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE, STOP};
+enum class STATES { WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE, STOP, DONE };
 
 bool running = true;
 STATES state = STATES::WELCOME;
 
 class State {
-	public:
+public:
 	virtual void update() = 0;
 	virtual void render() = 0;
 };
 
+class Welcome : public State {
+public:
+	void update() override {
+		state = STATES::MENU;
+	}
+	void render() override {
+		cout << ">> Welcome!" << endl;
+	}
+};
+
+class StateManager {
+private:
+	Welcome _welcome;
+
+	State* _current = &_welcome;
+	bool _running = true;
+public:
+	bool running() const { return state != STATES::DONE; }
+
+	State* current() {
+		if (state == STATES::WELCOME) { _current = &_welcome; }
+
+		return _current;
+	}
+};
+
+
+//A start on basic functionalities for the states
 void welcome_update() {
 	state = STATES::MENU;
 }
@@ -42,23 +71,15 @@ void play_game_render() {
 	cout << ">> You are playing the game! Done. " << endl;
 }
 
+
+
+
 int main() {
-	while (running) {
-		if (state == STATES::WELCOME) {
-			welcome_render();
-			welcome_update();
-		}
-		else if (state == STATES::MENU) {
-			menu_render();
-			menu_update();
-		}
-		else if (state == STATES::PLAY_GAME) {
-			play_game_render();
-			play_game_update();
-		}
-		else if (state == STATES::PLAY_GAME) {
-			running = false;
-		}
+	StateManager manager;
+
+	while (manager.running()) {
+		manager.current()->render();
+		manager.current()->update();
 	}
 	return 0;
 }

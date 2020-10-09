@@ -4,7 +4,7 @@
 
 using namespace std;
 
-enum class STATES { WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE, STOP, DONE };
+enum class STATES { WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE, STOP, QUIT };
 
 class State {
 public:
@@ -12,24 +12,37 @@ public:
 	virtual void render() = 0;
 };
 
-class Welcome : public State {
+class About : public State {
 public:
 	STATES update() override {
+		cin.ignore();
+		cin.get();
 		return STATES::MENU;
 	}
 	void render() override {
-		cout << ">> Welcome!" << endl;
+		cout << endl;
+		cout << "Zorkish :: About" << endl;
+		cout << "--------------------------------------------------------" << endl;
+		cout << "Written by: Khang Trinh - 102118468" << endl;
+		cout << "Press Enter to return to the Main Menu" << endl;
 	}
 };
 
 class Help : public State {
 public:
 	STATES update() override {
+		cin.ignore();
+		cin.get();
 		return STATES::MENU;
 	}
 	void render() override {
 		cout << endl;
-		cout << ">> This is a help screen, have some help :D" << endl;
+		cout << "Zorkish :: Help" << endl;
+		cout << "--------------------------------------------------------" << endl;
+		cout << "The following commands are supported:" << endl;
+		cout << "quit," << endl;
+		cout << "hiscore (for testing)" << endl;
+		cout << "Press Enter to return to the Main Menu" << endl;
 	}
 };
 
@@ -39,7 +52,7 @@ public:
 		int command;
 		cin >> command;
 
-		if (command == 1) {
+		if (command > 0 && command < 4) {
 			return STATES::PLAY_GAME;
 		}
 		else {
@@ -48,43 +61,29 @@ public:
 	}
 	void render() override {
 		cout << endl;
-		cout << ">> Select a stage to play:" << endl;
-		cout << ">> 1. The only stage that exists in the game but also the only stage with a lot of dramatic actions." << endl;
+		cout << "Zorkish :: Select Adventure" << endl;
+		cout << "--------------------------------------------------------" << endl;
+		cout << "Choose your adventure:" << endl;
+		cout << "1. Mountain World" << endl;
+		cout << "2. Water World" << endl;
+		cout << "3. Box World" << endl;
+		cout << "Select 1-3:> ";
 	}
 };
 
 class Hof : public State {
 public:
 	STATES update() override {
+		cin.ignore();
+		cin.get();
 		return STATES::MENU;
 	}
 	void render() override {
 		cout << endl;
-		cout << ">> Welcome to the Hall of Fame of a game that doesn't exist yet . . ." << endl;
-	}
-};
-
-class About : public State {
-public:
-	STATES update() override {
-		return STATES::MENU;
-	}
-	void render() override {
-		cout << endl;
-		cout << ">> Author: Khang Trinh" << endl;
-		cout << ">> Student ID: 102118468" << endl;
-	}
-};
-
-class PlayGame : public State {
-public:
-	STATES update() override {
-		return STATES::HI_SCORE;
-	}
-	void render() override {
-		cout << endl;
-		cout << ">> Game's starting . . ." << endl;
-		cout << ">> *Insert dramatic boss fights here*" << endl;
+		cout << "Zorkish :: Hall of Fame" << endl;
+		cout << "--------------------------------------------------------" << endl;
+		cout << "Top 10 Zorkish Adventure Champions" << endl;
+		cout << "Press Enter to return to the Main Menu" << endl;
 	}
 };
 
@@ -103,44 +102,85 @@ public:
 	}
 	void render() override {
 		cout << endl;
-		cout << ">> Game's finished! Congratz you've achieved a new high score!" << endl;
-		cout << ">> Please enter your name: ";
+		cout << "Zorkish :: New High Score" << endl;
+		cout << "--------------------------------------------------------" << endl;
+		cout << "Congratulations!" << endl;
+		cout << "You have made it to the Zorkish Hall Of Fame" << endl;
+		cout << "Adventure: The adventure that the player went chose . . ." << endl;
+		cout << "Score: The score that made to the Hall of Fame ;)" << endl;
+		cout << "Please type your name so that it will not be saved and press enter: " << endl;
+		cout << ":> ";
+	}
+};
+
+class PlayGame : public State {
+public:
+	STATES update() override {
+		string command;
+		cin >> command;
+
+		if (command == "quit") {
+			return STATES::MENU;
+		}
+		else if (command == "hiscore") {
+			return STATES::HI_SCORE;
+		}
+		else {
+			return STATES::PLAY_GAME;
+		}
+	}
+	void render() override {
+		cout << endl;
+		cout << "Welcome to Zorkish: Void World" << endl;
+		cout << "This world is simple and pointless. Used it to test Zorkish phase 1 spec." << endl;
+		cout << ":> ";
 	}
 };
 
 class Menu : public State {
 public:
 	STATES update() override {
-		string command;
+		int command;
 		cin >> command;
 
-		if (command == "help") {
-			return STATES::HELP;
+		switch (command)
+		{
+			case 1:
+				return STATES::SELECT;
+				break;
+			case 2:
+				return STATES::HOF;
+				break;
+			case 3:
+				return STATES::HELP;
+				break;
+			case 4:
+				return STATES::ABOUT;
+				break;
+			case 5:
+				return STATES::QUIT;
+				break;
+			default:
+				return STATES::MENU;
+				break;
 		}
-		else if (command == "select") {
-			return STATES::SELECT;
-		}
-		else if (command == "hof") {
-			return STATES::HOF;
-		}
-		else if (command == "about") {
-			return STATES::ABOUT;
-		}
-		return STATES::MENU;
 	}
 	void render() override {
 		cout << endl;
-		cout << ">> Type any of the following commands to proceed:" << endl;
-		cout << ">> help: Instructions on how to play the game." << endl;
-		cout << ">> select: Select a stage to play." << endl;
-		cout << ">> hof: View the Hall of Fame." << endl;
-		cout << ">> about: Details about the game." << endl;
+		cout << "Zorkish :: Main Menu" << endl;
+		cout << "--------------------------------------------------------" << endl;
+		cout << "\nWelcome to Zorkish Adventures\n" << endl;
+		cout << "1. Select Adventure and Play" << endl;
+		cout << "2. Hall Of Fame" << endl;
+		cout << "3. Help" << endl;
+		cout << "4. About" << endl;
+		cout << "5. Quit" << endl;
+		cout << "Select 1-5:> ";
 	}
 };
 
 class StateManager {
 private:
-	Welcome _welcome;
 	Menu _menu;
 	Help _help;
 	About _about;
@@ -149,18 +189,16 @@ private:
 	Hi_Score _hiScore;
 	Hof _hof;
 
-	State* _current = &_welcome;
+	State* _current = &_menu;
 	STATES _state = STATES::WELCOME;
 public:
-	bool running() const { return _state != STATES::DONE; }
+	bool running() const { return _state != STATES::QUIT; }
 
 	void update() {
 		//Unlike in the lecture, this has to be before the if's
 		//because if not messages will be displayed twice
 		_state = _current->update();
-
-		if (_state == STATES::WELCOME) { _current = &_welcome; }
-		else if (_state == STATES::MENU) { _current = &_menu; }
+		if (_state == STATES::MENU) { _current = &_menu; }
 		else if (_state == STATES::HELP) { _current = &_help; }
 		else if (_state == STATES::ABOUT) { _current = &_about; }
 		else if (_state == STATES::SELECT) { _current = &_select; }

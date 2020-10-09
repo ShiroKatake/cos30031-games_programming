@@ -6,19 +6,18 @@ using namespace std;
 
 enum class STATES { WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE, STOP, DONE };
 
-bool running = true;
-STATES state = STATES::WELCOME;
+STATES _state = STATES::WELCOME;
 
 class State {
 public:
-	virtual void update() = 0;
+	virtual STATES update() = 0;
 	virtual void render() = 0;
 };
 
 class Welcome : public State {
 public:
-	void update() override {
-		state = STATES::MENU;
+	STATES update() override {
+		return STATES::MENU;
 	}
 	void render() override {
 		cout << ">> Welcome!" << endl;
@@ -30,21 +29,21 @@ private:
 	Welcome _welcome;
 
 	State* _current = &_welcome;
-	bool _running = true;
 public:
-	bool running() const { return state != STATES::DONE; }
+	bool running() const { return _state != STATES::DONE; }
 
-	State* current() {
-		if (state == STATES::WELCOME) { _current = &_welcome; }
+	void update() {
+		if (_state == STATES::WELCOME) { _current = &_welcome; }
 
-		return _current;
+		_state = _current->update();
 	}
+	void render() { _current->render(); }
 };
 
 
 //A start on basic functionalities for the states
 void welcome_update() {
-	state = STATES::MENU;
+	_state = STATES::MENU;
 }
 
 void welcome_render() {
@@ -55,7 +54,7 @@ void menu_update() {
 	string command;
 	cin >> command;
 	if (command == "play") {
-		state = STATES::PLAY_GAME;
+		_state = STATES::PLAY_GAME;
 	}
 }
 
@@ -64,7 +63,7 @@ void menu_render() {
 }
 
 void play_game_update() {
-	state = STATES::STOP;
+	_state = STATES::STOP;
 }
 
 void play_game_render() {
@@ -78,8 +77,8 @@ int main() {
 	StateManager manager;
 
 	while (manager.running()) {
-		manager.current()->render();
-		manager.current()->update();
+		manager.render();
+		manager.update();
 	}
 	return 0;
 }

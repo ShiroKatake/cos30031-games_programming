@@ -76,11 +76,11 @@ public:
 	bool running() const { return _state != STATES::DONE; }
 
 	void update() {
+		_state = _current->update();
+
 		if (_state == STATES::WELCOME) { _current = &_welcome; }
 		else if (_state == STATES::MENU) { _current = &_menu; }
 		else if (_state == STATES::HELP) { _current = &_help; }
-
-		_state = _current->update();
 	}
 	void render() { _current->render(); }
 };

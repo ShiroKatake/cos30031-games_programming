@@ -22,3 +22,7 @@ and messages like "ADD: Task specs" is too generic since they don't have task na
 * Just realized as I hit commit that using a number system for commit messages would make version tracking a lot easier
 * Commit messages will now be something like `ADD #8.15.1` which is the same as `pushing something to task 8 for the 15th time with 1 bug revision`
 * `BUG` and `FIX` tag will also follow the same convention. When there's a new bug, the 3rd digit will increase by 1
+
+## **[8.15.1]** Fri Oct 9 2020
+### Have an output image to show more details
+* A picture is worth a thousand words. If I have a bug, having this image updated to show that would help a lot. As I fix the issue, updating this image will also do a lot in giving context

@@ -136,6 +136,7 @@ private:
 	Welcome _welcome;
 	Menu _menu;
 	Help _help;
+	Select _select;
 
 	State* _current = &_welcome;
 	STATES _state = STATES::WELCOME;
@@ -148,6 +149,7 @@ public:
 		if (_state == STATES::WELCOME) { _current = &_welcome; }
 		else if (_state == STATES::MENU) { _current = &_menu; }
 		else if (_state == STATES::HELP) { _current = &_help; }
+		else if (_state == STATES::SELECT) { _current = &_select; }
 	}
 	void render() { _current->render(); }
 };

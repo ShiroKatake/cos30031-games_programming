@@ -57,7 +57,7 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
-		cout << ">> This is a hall of fame screen, the game isn't a thing yet, so . . .\n" << endl;
+		cout << ">> Welcome to the Hall of Fame of a game that doesn't exist yet . . .\n" << endl;
 	}
 };
 
@@ -72,7 +72,7 @@ public:
 	}
 };
 
-class GamePlay : public State {
+class PlayGame : public State {
 public:
 	STATES update() override {
 		return STATES::HI_SCORE;
@@ -136,7 +136,11 @@ private:
 	Welcome _welcome;
 	Menu _menu;
 	Help _help;
+	About _about;
 	Select _select;
+	PlayGame _playGame;
+	Hi_Score _hiScore;
+	Hof _hof;
 
 	State* _current = &_welcome;
 	STATES _state = STATES::WELCOME;
@@ -144,12 +148,18 @@ public:
 	bool running() const { return _state != STATES::DONE; }
 
 	void update() {
+		//Unlike in the lecture, this has to be before the if's
+		//because if not messages will be displayed twice
 		_state = _current->update();
 
 		if (_state == STATES::WELCOME) { _current = &_welcome; }
 		else if (_state == STATES::MENU) { _current = &_menu; }
 		else if (_state == STATES::HELP) { _current = &_help; }
+		else if (_state == STATES::ABOUT) { _current = &_about; }
 		else if (_state == STATES::SELECT) { _current = &_select; }
+		else if (_state == STATES::PLAY_GAME) { _current = &_playGame; }
+		else if (_state == STATES::HI_SCORE) { _current = &_hiScore; }
+		else if (_state == STATES::HOF) { _current = &_hof; }
 	}
 	void render() { _current->render(); }
 };

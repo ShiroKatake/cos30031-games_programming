@@ -8,6 +8,12 @@ enum class STATES {WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE,
 bool running = true;
 STATES state = STATES::WELCOME;
 
+class State {
+	public:
+	virtual void update() = 0;
+	virtual void render() = 0;
+};
+
 void welcome_update() {
 	state = STATES::MENU;
 }

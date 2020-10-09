@@ -181,6 +181,7 @@ public:
 
 class StateManager {
 private:
+	//Declare all of your states here
 	Menu _menu;
 	Help _help;
 	About _about;
@@ -192,12 +193,16 @@ private:
 	State* _current = &_menu;
 	STATES _state = STATES::WELCOME;
 public:
+	//Check if the application is still running
 	bool running() const { return _state != STATES::QUIT; }
 
+	//Calling update here would call update() for the respective state
 	void update() {
 		//Unlike in the lecture, this has to be before the if's
 		//because if not messages will be displayed twice
 		_state = _current->update();
+
+		//Change the game to this state if the state changes
 		if (_state == STATES::MENU) { _current = &_menu; }
 		else if (_state == STATES::HELP) { _current = &_help; }
 		else if (_state == STATES::ABOUT) { _current = &_about; }
@@ -206,6 +211,8 @@ public:
 		else if (_state == STATES::HI_SCORE) { _current = &_hiScore; }
 		else if (_state == STATES::HOF) { _current = &_hof; }
 	}
+
+	//Calling render here would call render() for the respective state
 	void render() { _current->render(); }
 };
 

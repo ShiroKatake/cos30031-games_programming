@@ -46,8 +46,9 @@ public:
 		}
 	}
 	void render() override {
+		cout << endl;
 		cout << ">> Select a stage to play:" << endl;
-		cout << ">> 1. The only stage that exists in the game but also the only stage with a lot of dramatic actions.\n" << endl;
+		cout << ">> 1. The only stage that exists in the game but also the only stage with a lot of dramatic actions." << endl;
 	}
 };
 

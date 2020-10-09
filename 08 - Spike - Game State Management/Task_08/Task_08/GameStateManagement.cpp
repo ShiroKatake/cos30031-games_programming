@@ -18,7 +18,7 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
-		cout << ">> Welcome!\n" << endl;
+		cout << ">> Welcome!" << endl;
 	}
 };
 
@@ -28,7 +28,8 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
-		cout << ">> This is a help screen, have some help :D\n" << endl;
+		cout << endl;
+		cout << ">> This is a help screen, have some help :D" << endl;
 	}
 };
 
@@ -58,7 +59,8 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
-		cout << ">> Welcome to the Hall of Fame of a game that doesn't exist yet . . .\n" << endl;
+		cout << endl;
+		cout << ">> Welcome to the Hall of Fame of a game that doesn't exist yet . . ." << endl;
 	}
 };
 
@@ -68,8 +70,9 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
+		cout << endl;
 		cout << ">> Author: Khang Trinh" << endl;
-		cout << ">> Student ID: 102118468\n" << endl;
+		cout << ">> Student ID: 102118468" << endl;
 	}
 };
 
@@ -79,6 +82,7 @@ public:
 		return STATES::HI_SCORE;
 	}
 	void render() override {
+		cout << endl;
 		cout << ">> Game's starting . . ." << endl;
 		cout << ">> *Insert dramatic boss fights here*" << endl;
 	}
@@ -98,6 +102,7 @@ public:
 		}
 	}
 	void render() override {
+		cout << endl;
 		cout << ">> Game's finished! Congratz you've achieved a new high score!" << endl;
 		cout << ">> Please enter your name: ";
 	}
@@ -124,6 +129,7 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
+		cout << endl;
 		cout << ">> Type any of the following commands to proceed:" << endl;
 		cout << ">> help: Instructions on how to play the game." << endl;
 		cout << ">> select: Select a stage to play." << endl;

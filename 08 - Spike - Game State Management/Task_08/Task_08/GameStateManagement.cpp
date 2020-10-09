@@ -32,26 +32,93 @@ public:
 	}
 };
 
+class Select : public State {
+public:
+	STATES update() override {
+		int command;
+		cin >> command;
+
+		if (command == 1) {
+			return STATES::PLAY_GAME;
+		}
+		else {
+			return STATES::SELECT;
+		}
+	}
+	void render() override {
+		cout << ">> Select a stage to play:" << endl;
+		cout << ">> 1. The only stage that exists in the game but also the only stage with a lot of dramatic actions.\n" << endl;
+	}
+};
+
+class Hof : public State {
+public:
+	STATES update() override {
+		return STATES::MENU;
+	}
+	void render() override {
+		cout << ">> This is a hall of fame screen, the game isn't a thing yet, so . . .\n" << endl;
+	}
+};
+
+class About : public State {
+public:
+	STATES update() override {
+		return STATES::MENU;
+	}
+	void render() override {
+		cout << ">> Author: Khang Trinh" << endl;
+		cout << ">> Student ID: 102118468\n" << endl;
+	}
+};
+
+class GamePlay : public State {
+public:
+	STATES update() override {
+		return STATES::HI_SCORE;
+	}
+	void render() override {
+		cout << ">> Game's starting . . ." << endl;
+		cout << ">> *Insert dramatic boss fights here*" << endl;
+	}
+};
+
+class Hi_Score : public State {
+public:
+	STATES update() override {
+		string command;
+		cin >> command;
+
+		if (command != "") {
+			return STATES::HOF;
+		}
+		else {
+			return STATES::HI_SCORE;
+		}
+	}
+	void render() override {
+		cout << ">> Game's finished! Congratz you've achieved a new high score!" << endl;
+		cout << ">> Please enter your name: ";
+	}
+};
+
 class Menu : public State {
 public:
 	STATES update() override {
 		string command;
 		cin >> command;
 
-		if (command == "play") {
-			return STATES::PLAY_GAME;
+		if (command == "help") {
+			return STATES::HELP;
+		}
+		else if (command == "select") {
+			return STATES::SELECT;
 		}
 		else if (command == "hof") {
 			return STATES::HOF;
 		}
 		else if (command == "about") {
 			return STATES::ABOUT;
-		}
-		else if (command == "help") {
-			return STATES::HELP;
-		}
-		else if (command == "select") {
-			return STATES::SELECT;
 		}
 		return STATES::MENU;
 	}

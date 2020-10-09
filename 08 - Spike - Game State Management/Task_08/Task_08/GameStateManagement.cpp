@@ -6,8 +6,6 @@ using namespace std;
 
 enum class STATES { WELCOME, MENU, ABOUT, HELP, SELECT, HOF, PLAY_GAME, HI_SCORE, STOP, DONE };
 
-STATES _state = STATES::WELCOME;
-
 class State {
 public:
 	virtual STATES update() = 0;
@@ -20,58 +18,72 @@ public:
 		return STATES::MENU;
 	}
 	void render() override {
-		cout << ">> Welcome!" << endl;
+		cout << ">> Welcome!\n" << endl;
+	}
+};
+
+class Help : public State {
+public:
+	STATES update() override {
+		return STATES::MENU;
+	}
+	void render() override {
+		cout << ">> This is a help screen, have some help :D\n" << endl;
+	}
+};
+
+class Menu : public State {
+public:
+	STATES update() override {
+		string command;
+		cin >> command;
+
+		if (command == "play") {
+			return STATES::PLAY_GAME;
+		}
+		else if (command == "hof") {
+			return STATES::HOF;
+		}
+		else if (command == "about") {
+			return STATES::ABOUT;
+		}
+		else if (command == "help") {
+			return STATES::HELP;
+		}
+		else if (command == "select") {
+			return STATES::SELECT;
+		}
+		return STATES::MENU;
+	}
+	void render() override {
+		cout << ">> Type any of the following commands to proceed:" << endl;
+		cout << ">> help: Instructions on how to play the game." << endl;
+		cout << ">> select: Select a stage to play." << endl;
+		cout << ">> hof: View the Hall of Fame." << endl;
+		cout << ">> about: Details about the game." << endl;
 	}
 };
 
 class StateManager {
 private:
 	Welcome _welcome;
+	Menu _menu;
+	Help _help;
 
 	State* _current = &_welcome;
+	STATES _state = STATES::WELCOME;
 public:
 	bool running() const { return _state != STATES::DONE; }
 
 	void update() {
 		if (_state == STATES::WELCOME) { _current = &_welcome; }
+		else if (_state == STATES::MENU) { _current = &_menu; }
+		else if (_state == STATES::HELP) { _current = &_help; }
 
 		_state = _current->update();
 	}
 	void render() { _current->render(); }
 };
-
-
-//A start on basic functionalities for the states
-void welcome_update() {
-	_state = STATES::MENU;
-}
-
-void welcome_render() {
-	cout << ">> Welcome State:" << endl;
-}
-
-void menu_update() {
-	string command;
-	cin >> command;
-	if (command == "play") {
-		_state = STATES::PLAY_GAME;
-	}
-}
-
-void menu_render() {
-	cout << ">> Type 'play' to start: " << endl;
-}
-
-void play_game_update() {
-	_state = STATES::STOP;
-}
-
-void play_game_render() {
-	cout << ">> You are playing the game! Done. " << endl;
-}
-
-
-
 
 int main() {
 	StateManager manager;

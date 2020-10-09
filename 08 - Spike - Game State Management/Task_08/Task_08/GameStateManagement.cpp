@@ -42,6 +42,7 @@ public:
 			return STATES::PLAY_GAME;
 		}
 		else {
+			cout << command;
 			return STATES::SELECT;
 		}
 	}

@@ -4,6 +4,7 @@
 using namespace std;
 
 int main() {
+	//Code learned from http://www.cplusplus.com/doc/tutorial/files/
 	string line;
 
 	ifstream readTest2("testFile2.txt", ios::in | ios::binary);

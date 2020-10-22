@@ -17,20 +17,20 @@ void SeparateAndPrint(string& line) {
 	cout << line << endl;
 }
 
-int main() {
-	//Code learned from http://www.cplusplus.com/doc/tutorial/files/ and http://www.cplusplus.com/forum/beginner/86013/
-	string line;
-
-	ifstream readTest2("testFile2.txt", ios::in);
-	while (!readTest2.eof()) {
-		getline(readTest2, line);
-		
-		if (line.length() != 0 && line[0] != '#') {
-			SeparateAndPrint(line);
-		}
-	}
-
-	readTest2.close();
-
-	return 0;
-}
+//int main() {
+//	//Code learned from http://www.cplusplus.com/doc/tutorial/files/ and http://www.cplusplus.com/forum/beginner/86013/
+//	string line;
+//
+//	ifstream readTest2("testFile2.txt", ios::in);
+//	while (!readTest2.eof()) {
+//		getline(readTest2, line);
+//		
+//		if (line.length() != 0 && line[0] != '#') {
+//			SeparateAndPrint(line);
+//		}
+//	}
+//
+//	readTest2.close();
+//
+//	return 0;
+//}

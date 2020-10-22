@@ -20,7 +20,7 @@ int main() {
 	MyClass* myClass = new MyClass('f', 10, 3.2f);
 	
 	/*
-	ofstream writeTest1("testFile1.bin", ios::binary);
+	ofstream writeTest1("testFile1.bin", ios:out | ios::binary);
 	writeTest1.write(&myClass->myChar, sizeof(myClass->myChar));
 	writeTest1.write(reinterpret_cast<const char*>(&myClass->myInt), sizeof(myClass->myInt));
 	writeTest1.write(reinterpret_cast<const char*>(&myClass->myFloat), sizeof(myClass->myFloat));

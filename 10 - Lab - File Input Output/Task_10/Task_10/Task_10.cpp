@@ -19,10 +19,14 @@ int main() {
 
 	MyClass* myClass = new MyClass('asdf', 10, 3.2f);
 
+	char myChar = 'ads';
+	int myInt = 20;
+	float myFloat = 2.3f;
+
 	ofstream testFile1("testFile1.bin", ios::binary);
-	testFile1.write(&myClass->myChar, sizeof(myClass->myChar));
-	testFile1.write(reinterpret_cast<const char*>(&myClass->myInt), sizeof(myClass->myInt));
-	testFile1.write(reinterpret_cast<const char*>(&myClass->myFloat), sizeof(myClass->myFloat));
+	testFile1.write(&myChar, sizeof(myChar));
+	testFile1.write(reinterpret_cast<const char*>(&myInt), sizeof(myInt));
+	testFile1.write(reinterpret_cast<const char*>(&myFloat), sizeof(myFloat));
 	testFile1.close();
 	
 	return 0;

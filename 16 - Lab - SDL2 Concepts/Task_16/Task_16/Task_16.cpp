@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
 #include "SDL.h"
+
 using namespace std;
-//Code learned from https://www.youtube.com/watch?v=QQzAHcojEKg&ab_channel=Let%27sMakeGames
 
 int main(int argg, char *argv[]) {
 	SDL_Init(SDL_INIT_VIDEO);

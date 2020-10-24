@@ -16,8 +16,6 @@ int main(int argg, char *argv[]) {
 	bool isRunning = true;
 	SDL_Event ev;
 
-	string text = "";
-
 	while (isRunning) {
 		while (SDL_PollEvent(&ev) != 0) {
 			if (ev.type == SDL_QUIT)
@@ -28,7 +26,10 @@ int main(int argg, char *argv[]) {
 					//If r is pressed, get a random color and clear > display that color on the screen
 					case SDLK_r:
 					{
-						SDL_SetRenderDrawColor(renderer, rand() % 255 + 1, rand() % 255 + 1, rand() % 255 + 1, rand() % 255 + 1);
+						SDL_SetRenderDrawColor(renderer, rand() % 255 + 1, 
+														 rand() % 255 + 1, 
+														 rand() % 255 + 1, 
+														 rand() % 255 + 1);
 						SDL_RenderClear(renderer);
 						SDL_RenderPresent(renderer);
 						break;

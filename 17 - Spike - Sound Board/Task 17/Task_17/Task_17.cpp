@@ -1,17 +1,20 @@
 #include <string>
 #include <iostream>
+#include <SDL_mixer.h>
 #include "SDL.h"
 
 using namespace std;
 
 int main(int argg, char *argv[]) {
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	SDL_Window *window = SDL_CreateWindow("Task 16", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+		cout << "Error: " << Mix_GetError() << endl;
+
+	Mix_Music *bgm1 = Mix_LoadMUS("medieval.ogg");
+	Mix_Music *bgm2 = Mix_LoadMUS("wind.mp3");
+	Mix_Music *bgm3 = Mix_LoadMUS("accion.ogg");
 
 	bool isRunning = true;
 	SDL_Event ev;
@@ -23,21 +26,32 @@ int main(int argg, char *argv[]) {
 			else if (ev.type == SDL_KEYDOWN) {
 				switch (ev.key.keysym.sym)
 				{
-					//If r is pressed, get a random color and clear > display that color on the screen
-					case SDLK_r:
-					{
-						SDL_SetRenderDrawColor(renderer, rand() % 255 + 1,
-							rand() % 255 + 1,
-							rand() % 255 + 1,
-							rand() % 255 + 1);
-						SDL_RenderClear(renderer);
-						SDL_RenderPresent(renderer);
+					case SDLK_0:
+						if (Mix_PausedMusic())
+							Mix_ResumeMusic();
+						else
+							Mix_PauseMusic();
 						break;
-					}
 
-					//If q is pressed, exit
-					case SDLK_q:
-						isRunning = false;
+					case SDLK_1:
+						if (Mix_PlayingMusic()) {
+							Mix_HaltMusic();
+						}
+						Mix_PlayMusic(bgm1, -1);
+						break;
+
+					case SDLK_2:
+						if (Mix_PlayingMusic()) {
+							Mix_HaltMusic();
+						}
+						Mix_PlayMusic(bgm2, -1);
+						break;
+
+					case SDLK_3:
+						if (Mix_PlayingMusic()) {
+							Mix_HaltMusic();
+						}
+						Mix_PlayMusic(bgm3, -1);
 						break;
 
 					default:
@@ -48,7 +62,16 @@ int main(int argg, char *argv[]) {
 		SDL_UpdateWindowSurface(window);
 	}
 
+	Mix_FreeMusic(bgm1);
+	Mix_FreeMusic(bgm2);
+	Mix_FreeMusic(bgm3);
+
+	bgm1 = nullptr;
+	bgm2 = nullptr;
+	bgm3 = nullptr;
 	window = nullptr;
+	
+	Mix_Quit();
 	SDL_Quit();
 
 	return 0;

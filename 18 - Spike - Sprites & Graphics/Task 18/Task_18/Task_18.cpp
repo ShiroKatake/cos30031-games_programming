@@ -36,7 +36,7 @@ int main(int argg, char *argv[]) {
 	int frameTime = 0;
 
 	SDL_Window *window = nullptr;
-	/*SDL_Texture *image1 = nullptr;*/
+	SDL_Texture *image1 = nullptr;
 	SDL_Texture *image2 = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	SDL_Rect imageRect;
@@ -49,7 +49,7 @@ int main(int argg, char *argv[]) {
 
 	window = SDL_CreateWindow("Task 16", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	/*image1 = LoadTexture("image1.bmp", renderer);*/
+	image1 = LoadTexture("image1.bmp", renderer);
 	image2 = LoadTexture("image2.bmp", renderer);
 
 	SDL_QueryTexture(image2, NULL, NULL, &textureWidth, &textureHeight);
@@ -76,18 +76,28 @@ int main(int argg, char *argv[]) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
-				if (ev.key.keysym.sym == 0) {
+				if (ev.key.keysym.sym == SDLK_0) {
+					active0 = !active0;
+					active1 = false;
+					active2 = false;
+					active3 = false;
+					cout << "active0: " << boolalpha << active0 << endl;
+					cout << "active1: " << boolalpha << active1 << endl;
+					cout << "active2: " << boolalpha << active2 << endl;
+					cout << "active3: " << boolalpha << active3 << endl;
+
 					SDL_RenderClear(renderer);
+					if (active0) {
+						SDL_RenderCopy(renderer, image1, NULL, NULL);
+					}
 					SDL_RenderPresent(renderer);
 				}
 				else {
 					switch (ev.key.keysym.sym)
 					{
-						case SDLK_0:
-							break;
-
 						case SDLK_1:
 							imageRect.x = 0;
+							active0 = false;
 							active1 = !active1;
 							active2 = false;
 							active3 = false;
@@ -98,6 +108,7 @@ int main(int argg, char *argv[]) {
 
 						case SDLK_2:
 							imageRect.x = frameWidth;
+							active0 = false;
 							active1 = false;
 							active2 = !active2;
 							active3 = false;
@@ -108,6 +119,7 @@ int main(int argg, char *argv[]) {
 
 						case SDLK_3:
 							imageRect.x = frameWidth * 2;
+							active0 = false;
 							active1 = false;
 							active2 = false;
 							active3 = !active3;
@@ -130,12 +142,12 @@ int main(int argg, char *argv[]) {
 	}
 
 	SDL_DestroyWindow(window);
-	//SDL_DestroyTexture(image1);
+	SDL_DestroyTexture(image1);
 	SDL_DestroyTexture(image2);
 	SDL_DestroyRenderer(renderer);
 	
 	window = nullptr;
-	//image1 = nullptr;
+	image1 = nullptr;
 	image2 = nullptr;
 	renderer = nullptr;
 	SDL_Quit();

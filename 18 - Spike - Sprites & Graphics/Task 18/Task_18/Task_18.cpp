@@ -81,10 +81,8 @@ int main(int argg, char *argv[]) {
 					active1 = false;
 					active2 = false;
 					active3 = false;
-					cout << "active0: " << boolalpha << active0 << endl;
-					cout << "active1: " << boolalpha << active1 << endl;
-					cout << "active2: " << boolalpha << active2 << endl;
-					cout << "active3: " << boolalpha << active3 << endl;
+
+					cout << endl << "Toggling 0 " <<boolalpha << active0 << endl;
 
 					SDL_RenderClear(renderer);
 					if (active0) {
@@ -92,7 +90,7 @@ int main(int argg, char *argv[]) {
 					}
 					SDL_RenderPresent(renderer);
 				}
-				else {
+				else if (ev.key.keysym.sym == SDLK_1 || ev.key.keysym.sym == SDLK_2 || ev.key.keysym.sym == SDLK_3) {
 					switch (ev.key.keysym.sym)
 					{
 						case SDLK_1:
@@ -101,9 +99,8 @@ int main(int argg, char *argv[]) {
 							active1 = !active1;
 							active2 = false;
 							active3 = false;
-							cout << "active1: " << boolalpha << active1 << endl;
-							cout << "active2: " << boolalpha << active2 << endl;
-							cout << "active3: " << boolalpha << active3 << endl;
+
+							cout << endl << "Toggling 1 " << boolalpha << active1 << endl;
 							break;
 
 						case SDLK_2:
@@ -112,9 +109,8 @@ int main(int argg, char *argv[]) {
 							active1 = false;
 							active2 = !active2;
 							active3 = false;
-							cout << "active1: " << boolalpha << active1 << endl;
-							cout << "active2: " << boolalpha << active2 << endl;
-							cout << "active3: " << boolalpha << active3 << endl;
+
+							cout << endl << "Toggling 2 " << boolalpha << active2 << endl;
 							break;
 
 						case SDLK_3:
@@ -123,9 +119,8 @@ int main(int argg, char *argv[]) {
 							active1 = false;
 							active2 = false;
 							active3 = !active3;
-							cout << "active1: " << boolalpha << active1 << endl;
-							cout << "active2: " << boolalpha << active2 << endl;
-							cout << "active3: " << boolalpha << active3 << endl;
+
+							cout << endl << "Toggling 3 " << boolalpha << active3 << endl;
 							break;
 
 						default:
@@ -136,7 +131,12 @@ int main(int argg, char *argv[]) {
 						SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
 					}
 					SDL_RenderPresent(renderer);
-				}				
+				}
+
+				cout << "active0: " << boolalpha << active0 << endl;
+				cout << "active1: " << boolalpha << active1 << endl;
+				cout << "active2: " << boolalpha << active2 << endl;
+				cout << "active3: " << boolalpha << active3 << endl;
 			}
 		}
 	}

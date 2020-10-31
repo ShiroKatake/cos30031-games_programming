@@ -41,9 +41,6 @@ int main(int argg, char *argv[]) {
 	SDL_Renderer *renderer = nullptr;
 	SDL_Rect imageRect;
 	SDL_Rect imagePos;
-	imagePos.x = imagePos.y = 0;
-	imagePos.w = 170;
-	imagePos.h = 300;
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
@@ -73,21 +70,33 @@ int main(int argg, char *argv[]) {
 		while (SDL_PollEvent(&ev) != 0) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
-		}
+			else if (ev.type == SDL_KEYDOWN) {
+				switch (ev.key.keysym.sym)
+				{
+					case SDLK_0:
+						break;
 
-		frameTime++;
+					case SDLK_1:
+						imageRect.x = 0;
+						break;
 
-		if (fps / frameTime == 4) {
-			frameTime = 0;
-			imageRect.x += frameWidth;
-			if (imageRect.x >= textureWidth) {
-				imageRect.x = 0;
+					case SDLK_2:
+						imageRect.x = frameWidth;
+						break;
+
+					case SDLK_3:
+						imageRect.x = frameWidth * 2;
+						break;
+
+					default:
+						break;
+				}
+
+				SDL_RenderClear(renderer);
+				SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
+				SDL_RenderPresent(renderer);
 			}
 		}
-
-		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
-		SDL_RenderPresent(renderer);
 	}
 
 	SDL_DestroyWindow(window);

@@ -23,8 +23,8 @@ SDL_Texture *LoadTexture(string filepath, SDL_Renderer *renderer) {
 }
 
 SDL_Rect *GetRandomRectPos(SDL_Rect &rect) {
-	rect.x = rand() % 800;
-	rect.y = rand() % 600;
+	rect.x = rand() % (800 - 170);
+	rect.y = rand() % (600 - 300);
 	rect.w = 170;
 	rect.h = 300;
 
@@ -66,35 +66,65 @@ int main(int argg, char *argv[]) {
 	bool isRunning = true;
 	SDL_Event ev;
 
+	bool active0 = false;
+	bool active1 = false;
+	bool active2 = false;
+	bool active3 = false;
+
 	while (isRunning) {
 		while (SDL_PollEvent(&ev) != 0) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
-				switch (ev.key.keysym.sym)
-				{
-					case SDLK_0:
-						break;
-
-					case SDLK_1:
-						imageRect.x = 0;
-						break;
-
-					case SDLK_2:
-						imageRect.x = frameWidth;
-						break;
-
-					case SDLK_3:
-						imageRect.x = frameWidth * 2;
-						break;
-
-					default:
-						break;
+				if (ev.key.keysym.sym == 0) {
+					SDL_RenderClear(renderer);
+					SDL_RenderPresent(renderer);
 				}
+				else {
+					switch (ev.key.keysym.sym)
+					{
+						case SDLK_0:
+							break;
 
-				SDL_RenderClear(renderer);
-				SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
-				SDL_RenderPresent(renderer);
+						case SDLK_1:
+							imageRect.x = 0;
+							active1 = !active1;
+							active2 = false;
+							active3 = false;
+							cout << "active1: " << boolalpha << active1 << endl;
+							cout << "active2: " << boolalpha << active2 << endl;
+							cout << "active3: " << boolalpha << active3 << endl;
+							break;
+
+						case SDLK_2:
+							imageRect.x = frameWidth;
+							active1 = false;
+							active2 = !active2;
+							active3 = false;
+							cout << "active1: " << boolalpha << active1 << endl;
+							cout << "active2: " << boolalpha << active2 << endl;
+							cout << "active3: " << boolalpha << active3 << endl;
+							break;
+
+						case SDLK_3:
+							imageRect.x = frameWidth * 2;
+							active1 = false;
+							active2 = false;
+							active3 = !active3;
+							cout << "active1: " << boolalpha << active1 << endl;
+							cout << "active2: " << boolalpha << active2 << endl;
+							cout << "active3: " << boolalpha << active3 << endl;
+							break;
+
+						default:
+							break;
+					}
+					SDL_RenderClear(renderer);
+					if (active1 || active2 || active3) {
+						SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
+					}
+					SDL_RenderPresent(renderer);
+				}				
 			}
 		}
 	}

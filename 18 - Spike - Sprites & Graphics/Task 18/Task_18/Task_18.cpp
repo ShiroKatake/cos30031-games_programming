@@ -22,6 +22,15 @@ SDL_Texture *LoadTexture(string filepath, SDL_Renderer *renderer) {
 	return texture;
 }
 
+SDL_Rect *GetRandomRectPos(SDL_Rect &rect) {
+	rect.x = rand() % 800;
+	rect.y = rand() % 600;
+	rect.w = 170;
+	rect.h = 300;
+
+	return &rect;
+}
+
 int main(int argg, char *argv[]) {
 	const int fps = 60;
 	int frameTime = 0;
@@ -44,7 +53,7 @@ int main(int argg, char *argv[]) {
 	window = SDL_CreateWindow("Task 16", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	/*image1 = LoadTexture("image1.bmp", renderer);*/
-	image2 = LoadTexture("image1.bmp", renderer);
+	image2 = LoadTexture("image2.bmp", renderer);
 
 	SDL_QueryTexture(image2, NULL, NULL, &textureWidth, &textureHeight);
 
@@ -77,7 +86,7 @@ int main(int argg, char *argv[]) {
 		}
 
 		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, image2, &imageRect, &imagePos);
+		SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
 		SDL_RenderPresent(renderer);
 	}
 

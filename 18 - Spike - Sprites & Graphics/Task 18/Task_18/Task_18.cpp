@@ -22,7 +22,7 @@ SDL_Texture *LoadTexture(string filepath, SDL_Renderer *renderer) {
 	return texture;
 }
 
-SDL_Rect *GetRandomRectPos(SDL_Rect &rect) {
+SDL_Rect *GetRectDisplayInfo(SDL_Rect &rect) {
 	rect.x = rand() % (800 - 170);
 	rect.y = rand() % (600 - 300);
 	rect.w = 170;
@@ -60,6 +60,7 @@ int main(int argg, char *argv[]) {
 	imageRect.x = imageRect.y = 0;
 	imageRect.w = frameWidth;
 	imageRect.h = frameHeight;
+
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
@@ -127,9 +128,7 @@ int main(int argg, char *argv[]) {
 							break;
 					}
 					SDL_RenderClear(renderer);
-					if (active1 || active2 || active3) {
-						SDL_RenderCopy(renderer, image2, &imageRect, GetRandomRectPos(imagePos));
-					}
+					SDL_RenderCopy(renderer, image2, &imageRect, GetRectDisplayInfo(imagePos));
 					SDL_RenderPresent(renderer);
 				}
 

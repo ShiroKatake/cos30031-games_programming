@@ -45,30 +45,17 @@ bool IsBoxTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
 	return true;
 }
 
-bool IsCircleTriggerEnter2D(SDL_Rect &circle1, SDL_Rect &circle2, float &radius) {
+bool IsCircleTriggerEnter2D(SDL_Rect &circle1, SDL_Rect &circle2) {
 	if (pow((circle1.x + circle1.w / 2) - (circle2.x + circle2.w / 2), 2) + pow((circle1.y + circle1.w / 2) - (circle2.y + circle2.w / 2), 2) > pow(circle1.w / 2 + circle2.w / 2, 2))
 		return false;
 	return true;
 }
-
-class Circle {
-	int rectX;
-	int rectY;
-	int rectW;
-	int rectH;
-	float radius;
-public : 
-	float X() {
-		return rectX + radius;
-	}
-};
 
 int main(int argg, char *argv[]) {
 	const int fps = 60;
 	int frameTime = 0;
 
 	SDL_Window *window = nullptr;
-	SDL_Texture *image1 = nullptr;
 	SDL_Texture *image2 = nullptr;
 	SDL_Renderer *renderer = nullptr;
 
@@ -87,13 +74,10 @@ int main(int argg, char *argv[]) {
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
 
-	float radius;
-
 	SDL_Init(SDL_INIT_VIDEO);
 
 	window = SDL_CreateWindow("Task 16", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	image1 = LoadTexture("image1.bmp", renderer);
 	image2 = LoadTexture("image2.bmp", renderer);
 
 	SDL_QueryTexture(image2, NULL, NULL, &textureWidth, &textureHeight);
@@ -126,8 +110,6 @@ int main(int argg, char *argv[]) {
 	circleRect2.x = frameWidth;
 	circleRect2.y = frameWidth;
 
-	radius = frameWidth / 2;
-
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
@@ -157,7 +139,7 @@ int main(int argg, char *argv[]) {
 					//cout << "box colliding" << endl;
 				}
 
-				if (IsCircleTriggerEnter2D(circleBox1, circleBox2, radius)) {
+				if (IsCircleTriggerEnter2D(circleBox1, circleBox2)) {
 					cout << "circle colliding" << endl;
 				}
 			}
@@ -165,12 +147,10 @@ int main(int argg, char *argv[]) {
 	}
 
 	SDL_DestroyWindow(window);
-	SDL_DestroyTexture(image1);
 	SDL_DestroyTexture(image2);
 	SDL_DestroyRenderer(renderer);
 
 	window = nullptr;
-	image1 = nullptr;
 	image2 = nullptr;
 	renderer = nullptr;
 	SDL_Quit();

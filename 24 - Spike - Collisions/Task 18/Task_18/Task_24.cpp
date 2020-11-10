@@ -139,11 +139,13 @@ int main(int argg, char *argv[]) {
 				SDL_RenderClear(renderer);
 				SDL_RenderCopy(renderer, image2, &imageRect1, &box1);
 				SDL_RenderCopy(renderer, image2, &imageRect2, &box2);
+
+				SDL_SetTextureColorMod(image2, 255, 255, 0);
 				SDL_RenderCopy(renderer, image2, &circleRect1, &circleBox1);
-				SDL_RenderCopy(renderer, image2, &circleRect1, &circleBox1);
+				SDL_RenderCopy(renderer, image2, &circleRect2, &circleBox2);
 				SDL_RenderPresent(renderer);
 
-				if (IsTriggerEnter2D(box1, box2)) {
+				if (IsBoxTriggerEnter2D(box1, box2)) {
 					cout << "colliding" << endl;
 				}
 				else {

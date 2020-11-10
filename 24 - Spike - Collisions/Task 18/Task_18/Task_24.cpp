@@ -130,11 +130,13 @@ int main(int argg, char *argv[]) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
+				SDL_SetTextureColorMod(image2, 255, 255, 255);
 				if (ev.key.keysym.sym == SDLK_1) {
 					box1 = InitializeRect(imagePos, 300, 200, 200, 200);
 					box2 = InitializeRect(imagePos, 100, 100);
 
 					if (IsBoxTriggerEnter2D(box1, box2)) {
+						SDL_SetTextureColorMod(image2, 255, 255, 0);
 						cout << "box colliding" << endl;
 					}
 
@@ -148,6 +150,7 @@ int main(int argg, char *argv[]) {
 					circleBox2 = InitializeRect(imagePos, 100, 100);
 
 					if (IsCircleTriggerEnter2D(circleBox1, circleBox2)) {
+						SDL_SetTextureColorMod(image2, 255, 255, 0);
 						cout << "circle colliding" << endl;
 					}
 

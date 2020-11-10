@@ -131,30 +131,30 @@ int main(int argg, char *argv[]) {
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
 				if (ev.key.keysym.sym == SDLK_1) {
-					box1 = InitializeRect(imagePos, 200, 200);
+					box1 = InitializeRect(imagePos, 300, 200, 200, 200);
 					box2 = InitializeRect(imagePos, 100, 100);
+
+					if (IsBoxTriggerEnter2D(box1, box2)) {
+						cout << "box colliding" << endl;
+					}
 
 					SDL_RenderClear(renderer);
 					SDL_RenderCopy(renderer, image2, &imageRect1, &box1);
 					SDL_RenderCopy(renderer, image2, &imageRect2, &box2);
 					SDL_RenderPresent(renderer);
-
-					if (IsBoxTriggerEnter2D(box1, box2)) {
-						cout << "box colliding" << endl;
-					}
 				}
 				else if (ev.key.keysym.sym == SDLK_2) {
-					circleBox1 = InitializeRect(imagePos, 200, 200);
+					circleBox1 = InitializeRect(imagePos, 300, 200, 200, 200);
 					circleBox2 = InitializeRect(imagePos, 100, 100);
+
+					if (IsCircleTriggerEnter2D(circleBox1, circleBox2)) {
+						cout << "circle colliding" << endl;
+					}
 
 					SDL_RenderClear(renderer);
 					SDL_RenderCopy(renderer, image2, &circleRect1, &circleBox1);
 					SDL_RenderCopy(renderer, image2, &circleRect2, &circleBox2);
 					SDL_RenderPresent(renderer);
-
-					if (IsCircleTriggerEnter2D(circleBox1, circleBox2)) {
-						cout << "circle colliding" << endl;
-					}
 				}
 			}
 		}

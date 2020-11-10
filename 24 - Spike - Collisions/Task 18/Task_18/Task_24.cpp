@@ -150,7 +150,7 @@ int main(int argg, char *argv[]) {
 					circleBox2 = InitializeRect(imagePos, 100, 100);
 
 					if (IsCircleTriggerEnter2D(circleBox1, circleBox2)) {
-						SDL_SetTextureColorMod(image2, 255, 255, 0);
+						SDL_SetTextureColorMod(image2, 0, 255, 255);
 						cout << "circle colliding" << endl;
 					}
 

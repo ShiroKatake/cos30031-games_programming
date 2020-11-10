@@ -39,7 +39,8 @@ int main(int argg, char *argv[]) {
 	SDL_Texture *image1 = nullptr;
 	SDL_Texture *image2 = nullptr;
 	SDL_Renderer *renderer = nullptr;
-	SDL_Rect imageRect;
+	SDL_Rect imageRect1;
+	SDL_Rect imageRect2;
 	SDL_Rect imagePos;
 
 	int frameWidth, frameHeight;
@@ -57,9 +58,13 @@ int main(int argg, char *argv[]) {
 	frameWidth = textureWidth / 3;
 	frameHeight = textureHeight;
 
-	imageRect.x = imageRect.y = 0;
-	imageRect.w = frameWidth;
-	imageRect.h = frameHeight;
+	imageRect1.x = imageRect1.y = 0;
+	imageRect1.w = frameWidth;
+	imageRect1.h = frameHeight;
+
+	imageRect2.x = imageRect2.y = 0;
+	imageRect2.w = frameWidth;
+	imageRect2.h = frameHeight;
 
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
@@ -77,65 +82,13 @@ int main(int argg, char *argv[]) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
-				if (ev.key.keysym.sym == SDLK_0) {
-					active0 = !active0;
-					active1 = false;
-					active2 = false;
-					active3 = false;
+				imageRect1.x = 0;
+				imageRect2.x = frameWidth * 2;
 
-					cout << endl << "Toggling 0 " <<boolalpha << active0 << endl;
-
-					SDL_RenderClear(renderer);
-					if (active0) {
-						SDL_RenderCopy(renderer, image1, NULL, NULL);
-					}
-					SDL_RenderPresent(renderer);
-				}
-				else if (ev.key.keysym.sym == SDLK_1 || ev.key.keysym.sym == SDLK_2 || ev.key.keysym.sym == SDLK_3) {
-					switch (ev.key.keysym.sym)
-					{
-						case SDLK_1:
-							imageRect.x = 0;
-							active0 = false;
-							active1 = !active1;
-							active2 = false;
-							active3 = false;
-
-							cout << endl << "Toggling 1 " << boolalpha << active1 << endl;
-							break;
-
-						case SDLK_2:
-							imageRect.x = frameWidth;
-							active0 = false;
-							active1 = false;
-							active2 = !active2;
-							active3 = false;
-
-							cout << endl << "Toggling 2 " << boolalpha << active2 << endl;
-							break;
-
-						case SDLK_3:
-							imageRect.x = frameWidth * 2;
-							active0 = false;
-							active1 = false;
-							active2 = false;
-							active3 = !active3;
-
-							cout << endl << "Toggling 3 " << boolalpha << active3 << endl;
-							break;
-
-						default:
-							break;
-					}
-					SDL_RenderClear(renderer);
-					SDL_RenderCopy(renderer, image2, &imageRect, GetRectDisplayInfo(imagePos));
-					SDL_RenderPresent(renderer);
-				}
-
-				cout << "active0: " << boolalpha << active0 << endl;
-				cout << "active1: " << boolalpha << active1 << endl;
-				cout << "active2: " << boolalpha << active2 << endl;
-				cout << "active3: " << boolalpha << active3 << endl;
+				SDL_RenderClear(renderer);
+				SDL_RenderCopy(renderer, image2, &imageRect1, GetRectDisplayInfo(imagePos));
+				SDL_RenderCopy(renderer, image2, &imageRect2, GetRectDisplayInfo(imagePos));
+				SDL_RenderPresent(renderer);
 			}
 		}
 	}
@@ -144,7 +97,7 @@ int main(int argg, char *argv[]) {
 	SDL_DestroyTexture(image1);
 	SDL_DestroyTexture(image2);
 	SDL_DestroyRenderer(renderer);
-	
+
 	window = nullptr;
 	image1 = nullptr;
 	image2 = nullptr;

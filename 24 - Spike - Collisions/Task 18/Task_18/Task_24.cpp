@@ -32,6 +32,15 @@ SDL_Rect InitializeRect(SDL_Rect &rect, int w, int h) {
 	return rect;
 }
 
+SDL_Rect InitializeRect(SDL_Rect &rect, int x, int y, int w, int h) {
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
+
+	return rect;
+}
+
 //Doing a small reference to Unity's OnTriggerEnter2D (the logic seems to match)
 bool IsBoxTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
 	if (box1.y >= box2.y + box2.h)

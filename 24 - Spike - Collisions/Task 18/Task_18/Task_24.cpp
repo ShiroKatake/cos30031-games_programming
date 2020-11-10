@@ -23,8 +23,8 @@ SDL_Texture *LoadTexture(string filepath, SDL_Renderer *renderer) {
 }
 
 SDL_Rect InitializeRect(SDL_Rect &rect, int w, int h) {
-	rect.x = rand() % (800 - 170);
-	rect.y = rand() % (600 - 300);
+	rect.x = rand() % (800 - w);
+	rect.y = rand() % (600 - h);
 	rect.w = w;
 	rect.h = h;
 
@@ -54,10 +54,15 @@ int main(int argg, char *argv[]) {
 
 	SDL_Rect imageRect1;
 	SDL_Rect imageRect2;
+	SDL_Rect circleRect1;
+	SDL_Rect circleRect2;
 	SDL_Rect imagePos;
 
 	SDL_Rect box1;
 	SDL_Rect box2;
+
+	SDL_Rect circleBox1;
+	SDL_Rect circleBox2;
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
@@ -72,7 +77,7 @@ int main(int argg, char *argv[]) {
 	SDL_QueryTexture(image2, NULL, NULL, &textureWidth, &textureHeight);
 
 	frameWidth = textureWidth / 3;
-	frameHeight = textureHeight;
+	frameHeight = textureHeight / 2;
 
 	imageRect1.x = imageRect1.y = 0;
 	imageRect1.w = frameWidth;
@@ -81,6 +86,26 @@ int main(int argg, char *argv[]) {
 	imageRect2.x = imageRect2.y = 0;
 	imageRect2.w = frameWidth;
 	imageRect2.h = frameHeight;
+
+	circleRect1.x = imageRect2.y = 0;
+	circleRect1.w = frameWidth;
+	circleRect1.h = frameHeight;
+
+	circleRect2.x = imageRect2.y = 0;
+	circleRect2.w = frameWidth;
+	circleRect2.h = frameHeight;
+
+
+	//Image 1 is red image
+	imageRect1.x = 0;
+	//Image 2 is blue image
+	imageRect2.x = frameWidth * 2;
+
+	circleRect1.x = 0;
+	circleRect1.y = frameWidth;
+
+	circleRect2.x = frameWidth;
+	circleRect2.y = frameWidth;
 
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
@@ -98,17 +123,18 @@ int main(int argg, char *argv[]) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
-				//Image 1 is red image
-				imageRect1.x = 0;
-				//Image 2 is blue image
-				imageRect2.x = frameWidth * 2;
 
 				box1 = InitializeRect(imagePos, 200, 200);
 				box2 = InitializeRect(imagePos, 100, 100);
 
+				circleBox1 = InitializeRect(imagePos, 200, 200);
+				circleBox2 = InitializeRect(imagePos, 100, 100);
+
 				SDL_RenderClear(renderer);
 				SDL_RenderCopy(renderer, image2, &imageRect1, &box1);
 				SDL_RenderCopy(renderer, image2, &imageRect2, &box2);
+				SDL_RenderCopy(renderer, image2, &circleRect1, &circleBox1);
+				SDL_RenderCopy(renderer, image2, &circleRect1, &circleBox1);
 				SDL_RenderPresent(renderer);
 
 				if (IsTriggerEnter2D(box1, box2)) {

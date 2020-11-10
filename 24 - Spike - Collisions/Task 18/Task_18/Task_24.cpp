@@ -85,7 +85,7 @@ int main(int argg, char *argv[]) {
 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	window = SDL_CreateWindow("Task 16", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Task 24", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	image2 = LoadTexture("image2.bmp", renderer);
 

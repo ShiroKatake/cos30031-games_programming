@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include "SDL.h"
+#include <cmath>
 
 using namespace std;
 
@@ -44,18 +45,23 @@ bool IsBoxTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
 	return true;
 }
 
-bool IsCircleTriggerEnter2D(SDL_Rect &circle1, SDL_Rect &circle2) {
-	if (circle1.y >= circle2.y + circle2.h)
-		return false;
-	if (circle1.y + circle1.h <= circle2.y)
-		return false;
-	if (circle1.x >= circle2.x + circle2.w)
-		return false;
-	if (circle1.x + circle1.w <= circle2.x)
+bool IsCircleTriggerEnter2D(SDL_Rect &circle1, SDL_Rect &circle2, float &radius) {
+	if (pow((circle1.x + circle1.w / 2) - (circle2.x + circle2.w / 2), 2) + pow((circle1.y + circle1.w / 2) - (circle2.y + circle2.w / 2), 2) > pow(circle1.w / 2 + circle2.w / 2, 2))
 		return false;
 	return true;
 }
 
+class Circle {
+	int rectX;
+	int rectY;
+	int rectW;
+	int rectH;
+	float radius;
+public : 
+	float X() {
+		return rectX + radius;
+	}
+};
 
 int main(int argg, char *argv[]) {
 	const int fps = 60;
@@ -80,6 +86,8 @@ int main(int argg, char *argv[]) {
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
+
+	float radius;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -118,6 +126,8 @@ int main(int argg, char *argv[]) {
 	circleRect2.x = frameWidth;
 	circleRect2.y = frameWidth;
 
+	radius = frameWidth / 2;
+
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
@@ -139,17 +149,16 @@ int main(int argg, char *argv[]) {
 				SDL_RenderClear(renderer);
 				SDL_RenderCopy(renderer, image2, &imageRect1, &box1);
 				SDL_RenderCopy(renderer, image2, &imageRect2, &box2);
-
-				SDL_SetTextureColorMod(image2, 255, 255, 0);
 				SDL_RenderCopy(renderer, image2, &circleRect1, &circleBox1);
 				SDL_RenderCopy(renderer, image2, &circleRect2, &circleBox2);
 				SDL_RenderPresent(renderer);
 
 				if (IsBoxTriggerEnter2D(box1, box2)) {
-					cout << "colliding" << endl;
+					//cout << "box colliding" << endl;
 				}
-				else {
-					cout << "not colliding" << endl;
+
+				if (IsCircleTriggerEnter2D(circleBox1, circleBox2, radius)) {
+					cout << "circle colliding" << endl;
 				}
 			}
 		}

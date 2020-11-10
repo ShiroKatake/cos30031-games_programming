@@ -22,13 +22,25 @@ SDL_Texture *LoadTexture(string filepath, SDL_Renderer *renderer) {
 	return texture;
 }
 
-SDL_Rect *GetRectDisplayInfo(SDL_Rect &rect, int w, int h) {
+SDL_Rect InitializeRect(SDL_Rect &rect, int w, int h) {
 	rect.x = rand() % (800 - 170);
 	rect.y = rand() % (600 - 300);
 	rect.w = w;
 	rect.h = h;
 
-	return &rect;
+	return rect;
+}
+
+bool IsTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
+	if (box1.y >= box2.y + box2.h)
+		return false;
+	if (box1.y + box1.h <= box2.y)
+		return false;
+	if (box1.x >= box2.x + box2.w)
+		return false;
+	if (box1.x + box1.w <= box2.x)
+		return false;
+	return true;
 }
 
 int main(int argg, char *argv[]) {
@@ -39,9 +51,13 @@ int main(int argg, char *argv[]) {
 	SDL_Texture *image1 = nullptr;
 	SDL_Texture *image2 = nullptr;
 	SDL_Renderer *renderer = nullptr;
+
 	SDL_Rect imageRect1;
 	SDL_Rect imageRect2;
 	SDL_Rect imagePos;
+
+	SDL_Rect box1;
+	SDL_Rect box2;
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
@@ -82,13 +98,25 @@ int main(int argg, char *argv[]) {
 			if (ev.type == SDL_QUIT)
 				isRunning = false;
 			else if (ev.type == SDL_KEYDOWN) {
+				//Image 1 is red image
 				imageRect1.x = 0;
+				//Image 2 is blue image
 				imageRect2.x = frameWidth * 2;
 
+				box1 = InitializeRect(imagePos, 200, 200);
+				box2 = InitializeRect(imagePos, 100, 100);
+
 				SDL_RenderClear(renderer);
-				SDL_RenderCopy(renderer, image2, &imageRect1, GetRectDisplayInfo(imagePos, 200, 200));
-				SDL_RenderCopy(renderer, image2, &imageRect2, GetRectDisplayInfo(imagePos, 100, 100));
+				SDL_RenderCopy(renderer, image2, &imageRect1, &box1);
+				SDL_RenderCopy(renderer, image2, &imageRect2, &box2);
 				SDL_RenderPresent(renderer);
+
+				if (IsTriggerEnter2D(box1, box2)) {
+					cout << "colliding" << endl;
+				}
+				else {
+					cout << "not colliding" << endl;
+				}
 			}
 		}
 	}

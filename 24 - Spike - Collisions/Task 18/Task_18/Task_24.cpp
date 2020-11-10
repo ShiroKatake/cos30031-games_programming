@@ -22,11 +22,11 @@ SDL_Texture *LoadTexture(string filepath, SDL_Renderer *renderer) {
 	return texture;
 }
 
-SDL_Rect *GetRectDisplayInfo(SDL_Rect &rect) {
+SDL_Rect *GetRectDisplayInfo(SDL_Rect &rect, int w, int h) {
 	rect.x = rand() % (800 - 170);
 	rect.y = rand() % (600 - 300);
-	rect.w = 170;
-	rect.h = 300;
+	rect.w = w;
+	rect.h = h;
 
 	return &rect;
 }
@@ -86,8 +86,8 @@ int main(int argg, char *argv[]) {
 				imageRect2.x = frameWidth * 2;
 
 				SDL_RenderClear(renderer);
-				SDL_RenderCopy(renderer, image2, &imageRect1, GetRectDisplayInfo(imagePos));
-				SDL_RenderCopy(renderer, image2, &imageRect2, GetRectDisplayInfo(imagePos));
+				SDL_RenderCopy(renderer, image2, &imageRect1, GetRectDisplayInfo(imagePos, 200, 200));
+				SDL_RenderCopy(renderer, image2, &imageRect2, GetRectDisplayInfo(imagePos, 100, 100));
 				SDL_RenderPresent(renderer);
 			}
 		}

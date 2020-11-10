@@ -31,7 +31,8 @@ SDL_Rect InitializeRect(SDL_Rect &rect, int w, int h) {
 	return rect;
 }
 
-bool IsTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
+//Doing a small reference to Unity's OnTriggerEnter2D (the logic seems to match)
+bool IsBoxTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
 	if (box1.y >= box2.y + box2.h)
 		return false;
 	if (box1.y + box1.h <= box2.y)
@@ -42,6 +43,19 @@ bool IsTriggerEnter2D(SDL_Rect &box1, SDL_Rect &box2) {
 		return false;
 	return true;
 }
+
+bool IsCircleTriggerEnter2D(SDL_Rect &circle1, SDL_Rect &circle2) {
+	if (circle1.y >= circle2.y + circle2.h)
+		return false;
+	if (circle1.y + circle1.h <= circle2.y)
+		return false;
+	if (circle1.x >= circle2.x + circle2.w)
+		return false;
+	if (circle1.x + circle1.w <= circle2.x)
+		return false;
+	return true;
+}
+
 
 int main(int argg, char *argv[]) {
 	const int fps = 60;
@@ -95,10 +109,7 @@ int main(int argg, char *argv[]) {
 	circleRect2.w = frameWidth;
 	circleRect2.h = frameHeight;
 
-
-	//Image 1 is red image
 	imageRect1.x = 0;
-	//Image 2 is blue image
 	imageRect2.x = frameWidth * 2;
 
 	circleRect1.x = 0;
@@ -112,11 +123,6 @@ int main(int argg, char *argv[]) {
 
 	bool isRunning = true;
 	SDL_Event ev;
-
-	bool active0 = false;
-	bool active1 = false;
-	bool active2 = false;
-	bool active3 = false;
 
 	while (isRunning) {
 		while (SDL_PollEvent(&ev) != 0) {

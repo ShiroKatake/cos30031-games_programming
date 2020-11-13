@@ -1,7 +1,6 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include <vector>
 using namespace std;
 
 class Location {
@@ -32,13 +31,16 @@ int main() {
 
 	player->currentLocation = A;
 
-	string input;
+	char input[100];
 	cout << "init finished" << endl;
 
 	while (true) {
-		cin >> input;
-		player->currentLocation = player->currentLocation->exits[input];
-		cout << "Location reached: " << player->currentLocation->name << endl;
+		cin.getline(input, sizeof(input));
+
+		if (input[0] == 'g' &&  input[1] == 'o') {
+			player->currentLocation = player->currentLocation->exits[string (1, input[3])];
+			cout << "Location reached: " << player->currentLocation->name << endl;
+		}
 	}
 
 	return 0;

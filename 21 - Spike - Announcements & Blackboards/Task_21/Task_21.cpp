@@ -1,3 +1,4 @@
+// Code learned from https://seanballais.github.io/blog/implementing-a-simple-message-bus-in-cpp/ 
 #include <iostream>
 #include <functional>
 #include <queue>

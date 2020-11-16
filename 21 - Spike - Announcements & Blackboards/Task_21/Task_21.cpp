@@ -9,16 +9,22 @@ using namespace std;
 class Message {
 private:
 	std::string messageEvent;
+	int receiverId;
 
 public:
-	Message(const std::string event)
+	Message(const std::string event, const int receiverId)
 	{
 		messageEvent = event;
+		this->receiverId = receiverId;
 	}
 
 	std::string GetEvent()
 	{
 		return messageEvent;
+	}
+
+	bool IsMessageForReceiver(int id) {
+		return receiverId == id;
 	}
 };
 
@@ -44,10 +50,16 @@ public:
 	void Notify()
 	{
 		while (!messages.empty()) {
-			for (auto iter = receivers.begin(); iter != receivers.end(); iter++) {
-				cout << "message received" << endl;
-				(*iter)(messages.front());
+			for (std::size_t i = 0; i < receivers.size(); ++i) {
+				if (messages.front().IsMessageForReceiver(i)) {
+					messages.front();
+				}
 			}
+
+			/*for (auto iter = receivers.begin(); iter != receivers.end(); iter++) {
+				(*iter)(messages.front());
+			}*/
+
 			messages.pop();
 		}
 	}
@@ -116,12 +128,10 @@ private:
 	}
 };
 
-
-
 class Message2 {
 private:
 	std::string messageEvent;
-	std::string receiverId;
+	int receiverId;
 
 public:
 	Message2(const std::string event, const int receiverId)
@@ -130,46 +140,72 @@ public:
 		this->receiverId = receiverId;
 	}
 
-	std::string GetEvent()
+	std::string GetMessage()
 	{
 		return messageEvent;
 	}
+
+	bool IsMessageForReceiver(int id) {
+		return receiverId == id;
+	}
 };
 
-class ComponentC {
-	int uid;
+class Mailbox {
+private:
+	vector<Message2> messages;
+	vector<std::function<void(Message)>> receivers;
 public:
-	ComponentC(int uid) {
-		this->uid = uid;
+	void AddReceiver(Receipient receipient) {
+		receivers.push_back(receipient);
+	}
+	void CreateMessage(Message2 message) {
+		messages.push_back(message);
+	}
+
+	void Deliver() {
+		for (std::size_t i = 0; i < receivers.size(); ++i) {
+			for (Message2 m : messages) {
+				if (m.IsMessageForReceiver(i))
+					receivers[i].ReceiveMessage(m);
+			}
+		}
 	}
 };
 
 class Receipient {
 public:
 	int uid;
-	Receipient(int uid) {
+
+	Receipient(int uid, Mailbox* mailbox) {
 		this->uid = uid;
+		mailbox->AddReceiver(*this);
+	}
+
+	void CreateMessage(string event, int id, Mailbox* mailbox) {
+		Message2 message(event, id);
+		mailbox->CreateMessage(message);
+	}
+
+	void ReceiveMessage(Message2 message) {
+		cout << "Component " << this << "received: " << message.GetMessage() << endl;
 	}
 };
 
 int main() {
-	MessageBus messageBus;
-	ComponentA compA(&messageBus);
-	ComponentB compB(&messageBus);
-	vector<Receipient> everybody;
-	// This is supposed to act like a game loop.
-	for (int ctr = 0; ctr < 2; ctr++) {
-		compA.Update();
-		compB.update();
-		messageBus.Notify();
-	}
+	Mailbox mailbox;
+	Receipient compA(1, &mailbox);
+	Receipient compB(2, &mailbox);
+	
+	compB.CreateMessage("Hi!", 1, &mailbox);
+	mailbox.Deliver();
+	//// This is supposed to act like a game loop.
+	//for (int ctr = 0; ctr < 2; ctr++) {
+	//	compA.Update();
+	//	compB.update();
+	//	messageBus.Notify();
+	//}
 
 	std::cin.get();
-
-	/*for (Receipient r : everybody) {
-		if (r.uid == message.receipientUID)
-			r.receiveMessage(message)
-	}*/
 
 	return 0;
 }

@@ -4,39 +4,42 @@
 #include <vector>
 #include <string>
 
-class Message
-{
+class Message {
+private:
+	std::string messageEvent;
+
 public:
 	Message(const std::string event)
 	{
 		messageEvent = event;
 	}
 
-	std::string getEvent()
+	std::string GetEvent()
 	{
 		return messageEvent;
 	}
-private:
-	std::string messageEvent;
 };
 
-class MessageBus
-{
+class MessageBus {
+private:
+	std::vector<std::function<void(Message)>> receivers;
+	std::queue<Message> messages;
+
 public:
 	MessageBus() {};
 	~MessageBus() {};
 
-	void addReceiver(std::function<void(Message)> messageReceiver)
+	void AddReceiver(std::function<void(Message)> messageReceiver)
 	{
 		receivers.push_back(messageReceiver);
 	}
 
-	void sendMessage(Message message)
+	void SendMessage(Message message)
 	{
 		messages.push(message);
 	}
 
-	void notify()
+	void Notify()
 	{
 		while (!messages.empty()) {
 			for (auto iter = receivers.begin(); iter != receivers.end(); iter++) {
@@ -46,22 +49,9 @@ public:
 			messages.pop();
 		}
 	}
-
-private:
-	std::vector<std::function<void(Message)>> receivers;
-	std::queue<Message> messages;
 };
 
-class BusNode
-{
-public:
-	BusNode(MessageBus *messageBus)
-	{
-		this->messageBus = messageBus;
-		this->messageBus->addReceiver(this->getNotifyFunc());
-	}
-
-	virtual void update() {}
+class BusNode {
 protected:
 	MessageBus *messageBus;
 
@@ -73,9 +63,9 @@ protected:
 		return messageListener;
 	}
 
-	void send(Message message)
+	void Send(Message message)
 	{
-		messageBus->sendMessage(message);
+		messageBus->SendMessage(message);
 	}
 
 	virtual void onNotify(Message message)
@@ -83,53 +73,61 @@ protected:
 		// Do something here. Your choice. But you could do this.
 		// std::cout << "Siopao! Siopao! Siopao! (Someone forgot to implement onNotify().)" << std::endl;
 	}
+
+public:
+	BusNode(MessageBus *messageBus)
+	{
+		this->messageBus = messageBus;
+		this->messageBus->AddReceiver(this->getNotifyFunc());
+	}
+
+	virtual void Update() {}
 };
 
 // This class will receive a message from ComponentB.
-class ComponentA : public BusNode
-{
+class ComponentA : public BusNode {
 public:
 	ComponentA(MessageBus* messageBus) : BusNode(messageBus) {}
 
 private:
 	void onNotify(Message message)
 	{
-		std::cout << "I received: " << message.getEvent() << std::endl;
+		std::cout << "Component A received: " << message.GetEvent() << std::endl;
 	}
 };
 
 // This class will send a message to ComponentA.
-class ComponentB : public BusNode
-{
+class ComponentB : public BusNode {
 public:
 	ComponentB(MessageBus* messageBus) : BusNode(messageBus) {}
 
 	void update()
 	{
 		Message greeting("Hi!");
-		send(greeting);
+		Send(greeting);
 	}
 
 private:
 	void onNotify(Message message)
 	{
-		std::cout << "I received: " << message.getEvent() << std::endl;
+		std::cout << "Component B received: " << message.GetEvent() << std::endl;
 	}
 };
 
 
-int main()
-{
+int main() {
 	MessageBus messageBus;
 	ComponentA compA(&messageBus);
 	ComponentB compB(&messageBus);
 
 	// This is supposed to act like a game loop.
-	for (int ctr = 0; ctr < 50; ctr++) {
-		compA.update();
+	for (int ctr = 0; ctr < 2; ctr++) {
+		compA.Update();
 		compB.update();
-		messageBus.notify();
+		messageBus.Notify();
 	}
+
+	std::cin.get();
 
 	return 0;
 }

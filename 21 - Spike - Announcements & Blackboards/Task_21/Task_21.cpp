@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class Message {
 private:
 	std::string messageEvent;
@@ -43,9 +45,9 @@ public:
 	{
 		while (!messages.empty()) {
 			for (auto iter = receivers.begin(); iter != receivers.end(); iter++) {
+				cout << "message received" << endl;
 				(*iter)(messages.front());
 			}
-
 			messages.pop();
 		}
 	}
@@ -115,11 +117,46 @@ private:
 };
 
 
+
+class Message2 {
+private:
+	std::string messageEvent;
+	std::string receiverId;
+
+public:
+	Message2(const std::string event, const int receiverId)
+	{
+		messageEvent = event;
+		this->receiverId = receiverId;
+	}
+
+	std::string GetEvent()
+	{
+		return messageEvent;
+	}
+};
+
+class ComponentC {
+	int uid;
+public:
+	ComponentC(int uid) {
+		this->uid = uid;
+	}
+};
+
+class Receipient {
+public:
+	int uid;
+	Receipient(int uid) {
+		this->uid = uid;
+	}
+};
+
 int main() {
 	MessageBus messageBus;
 	ComponentA compA(&messageBus);
 	ComponentB compB(&messageBus);
-
+	vector<Receipient> everybody;
 	// This is supposed to act like a game loop.
 	for (int ctr = 0; ctr < 2; ctr++) {
 		compA.Update();
@@ -128,6 +165,11 @@ int main() {
 	}
 
 	std::cin.get();
+
+	/*for (Receipient r : everybody) {
+		if (r.uid == message.receipientUID)
+			r.receiveMessage(message)
+	}*/
 
 	return 0;
 }

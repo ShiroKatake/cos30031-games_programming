@@ -117,7 +117,7 @@ public:
 
 	void update()
 	{
-		Message greeting("Hi!");
+		Message greeting("Hi!", 0);
 		Send(greeting);
 	}
 
@@ -128,82 +128,89 @@ private:
 	}
 };
 
-class Message2 {
-private:
-	std::string messageEvent;
-	int receiverId;
-
-public:
-	Message2(const std::string event, const int receiverId)
-	{
-		messageEvent = event;
-		this->receiverId = receiverId;
-	}
-
-	std::string GetMessage()
-	{
-		return messageEvent;
-	}
-
-	bool IsMessageForReceiver(int id) {
-		return receiverId == id;
-	}
-};
-
-class Mailbox {
-private:
-	vector<Message2> messages;
-	vector<std::function<void(Message)>> receivers;
-public:
-	void AddReceiver(Receipient receipient) {
-		receivers.push_back(receipient);
-	}
-	void CreateMessage(Message2 message) {
-		messages.push_back(message);
-	}
-
-	void Deliver() {
-		for (std::size_t i = 0; i < receivers.size(); ++i) {
-			for (Message2 m : messages) {
-				if (m.IsMessageForReceiver(i))
-					receivers[i].ReceiveMessage(m);
-			}
-		}
-	}
-};
-
-class Receipient {
-public:
-	int uid;
-
-	Receipient(int uid, Mailbox* mailbox) {
-		this->uid = uid;
-		mailbox->AddReceiver(*this);
-	}
-
-	void CreateMessage(string event, int id, Mailbox* mailbox) {
-		Message2 message(event, id);
-		mailbox->CreateMessage(message);
-	}
-
-	void ReceiveMessage(Message2 message) {
-		cout << "Component " << this << "received: " << message.GetMessage() << endl;
-	}
-};
+//class Message2 {
+//private:
+//	std::string messageEvent;
+//	int receiverId;
+//
+//public:
+//	Message2(const std::string event, const int receiverId)
+//	{
+//		messageEvent = event;
+//		this->receiverId = receiverId;
+//	}
+//
+//	std::string GetMessage()
+//	{
+//		return messageEvent;
+//	}
+//
+//	bool IsMessageForReceiver(int id) {
+//		return receiverId == id;
+//	}
+//};
+//
+//class Mailbox {
+//private:
+//	vector<Message2> messages;
+//	vector<std::function<void(Message)>> receivers;
+//public:
+//	void AddReceiver(Receipient receipient) {
+//		receivers.push_back(receipient);
+//	}
+//	void CreateMessage(Message2 message) {
+//		messages.push_back(message);
+//	}
+//
+//	void Deliver() {
+//		for (std::size_t i = 0; i < receivers.size(); ++i) {
+//			for (Message2 m : messages) {
+//				if (m.IsMessageForReceiver(i))
+//					receivers[i].ReceiveMessage(m);
+//			}
+//		}
+//	}
+//};
+//
+//class Receipient {
+//public:
+//	int uid;
+//
+//	Receipient(int uid, Mailbox* mailbox) {
+//		this->uid = uid;
+//		mailbox->AddReceiver(*this);
+//	}
+//
+//	void CreateMessage(string event, int id, Mailbox* mailbox) {
+//		Message2 message(event, id);
+//		mailbox->CreateMessage(message);
+//	}
+//
+//	void ReceiveMessage(Message2 message) {
+//		cout << "Component " << this << "received: " << message.GetMessage() << endl;
+//	}
+//};
 
 int main() {
-	Mailbox mailbox;
-	Receipient compA(1, &mailbox);
-	Receipient compB(2, &mailbox);
-	
-	compB.CreateMessage("Hi!", 1, &mailbox);
-	mailbox.Deliver();
-	//// This is supposed to act like a game loop.
-	//for (int ctr = 0; ctr < 2; ctr++) {
-	//	compA.Update();
-	//	compB.update();
-	//	messageBus.Notify();
-	//}
+	//Mailbox mailbox;
+	//Receipient compA(1, &mailbox);
+	//Receipient compB(2, &mailbox);
+	//
+	//compB.CreateMessage("Hi!", 1, &mailbox);
+	//mailbox.Deliver();
+
+	MessageBus messageBus;
+
+	//Creating ComponentA first will put it at the id of 0
+	ComponentA compA(&messageBus);
+	ComponentB compB(&messageBus);
+
+	// This is supposed to act like a game loop.
+	for (int ctr = 0; ctr < 2; ctr++) {
+		compA.Update();
+		compB.update();
+		messageBus.Notify();
+	}
 
 	std::cin.get();
 

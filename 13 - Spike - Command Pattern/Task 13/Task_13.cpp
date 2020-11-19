@@ -14,15 +14,13 @@ public:
 	CommandHandler* commandHandler;
 
 	Command(string alias, CommandHandler* commandHandler);
-	virtual void execute(vector<string> input) = 0;
+	virtual void execute(vector<string> arg) = 0;
 	void ChangeAlias(string alias) {
 		this->alias = alias;
 	}
 };
 
 class CommandHandler {
-private:
-
 public:
 	vector<Command*> commands;
 	void AddCommand(Command* command) {
@@ -95,8 +93,7 @@ int main() {
 
 	while (true)
 	{
-		std::getline(std::cin, input);
-
+		getline(cin, input);
 		handler.HandleCommand(input);
 	}
 	return 0;
